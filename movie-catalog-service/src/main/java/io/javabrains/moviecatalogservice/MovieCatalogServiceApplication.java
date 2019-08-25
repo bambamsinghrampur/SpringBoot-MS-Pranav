@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-//@EnableEurekaClient
+@EnableEurekaClient
 public class MovieCatalogServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MovieCatalogServiceApplication.class, args);
 	}
 
-//	@LoadBalanced
-//	@Bean
-//	public RestTemplate getRestTemplate() {
-//		return new RestTemplate();
-//	}
+	@LoadBalanced
+	@Bean
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
 }
 

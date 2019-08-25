@@ -20,27 +20,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/catalog")
 public class CatalogResource {
 
-//    @Autowired
-//    private RestTemplate restTemplate;
-//
-//    @Autowired
-//    WebClient.Builder webClientBuilder;
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    WebClient.Builder webClientBuilder;
 
     @RequestMapping("/{userId}")
     public List<CatalogItem> getCatalog(@PathVariable("userId") String userId) {
-    	
-    	
-    	CatalogItem o = new CatalogItem("3idiot", "amir khan", 4);
-		return Collections.singletonList(o );//(new CatalogItem("3idiot", "amir khan", "4"));
 
-//        UserRating userRating = restTemplate.getForObject("http://ratings-data-service/ratingsdata/user/" + userId, UserRating.class);
-//
-//        return userRating.getRatings().stream()
-//                .map(rating -> {
-//                    Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
-//                    return new CatalogItem(movie.getName(), movie.getDescription(), rating.getRating());
-//                })
-//                .collect(Collectors.toList());
+        UserRating userRating = restTemplate.getForObject("http://ratings-data-service/ratingsdata/user/" + userId, UserRating.class);
+
+        return userRating.getRatings().stream()
+                .map(rating -> {
+                    Movie movie = restTemplate.getForObject("http://movie-info-service/movies/" + rating.getMovieId(), Movie.class);
+                    return new CatalogItem(movie.getName(), movie.getDescription(), rating.getRating());
+                })
+                .collect(Collectors.toList());
 
     }
 }

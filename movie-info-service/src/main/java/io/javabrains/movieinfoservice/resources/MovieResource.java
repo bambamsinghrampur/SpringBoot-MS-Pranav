@@ -13,20 +13,16 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/movies")
 public class MovieResource {
 
-//    @Value("${api.key}")
-//    private String apiKey;
-//
-//    @Autowired
-//    private RestTemplate restTemplate;
+    @Value("${api.key}")
+    private String apiKey;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @RequestMapping("/{movieId}")
     public Movie getMovieInfo(@PathVariable("movieId") String movieId) {
-    	
-    	
-    	return new Movie(movieId, "3 idiot", "amir khan");
-//    	
-//        MovieSummary movieSummary = restTemplate.getForObject("https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" +  apiKey, MovieSummary.class);
-//        return new Movie(movieId, movieSummary.getTitle(), movieSummary.getOverview());
+        MovieSummary movieSummary = restTemplate.getForObject("https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" +  apiKey, MovieSummary.class);
+        return new Movie(movieId, movieSummary.getTitle(), movieSummary.getOverview());
 
     }
 
